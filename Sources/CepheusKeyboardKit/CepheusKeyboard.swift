@@ -13,7 +13,7 @@ let screenHeight = WKInterfaceDevice.current().screenBounds.size.height
 public struct CepheusKeyboard: View {
   //Configurations
   public var input: Binding<String>
-  public var prompt: LocalizedStringResource?
+  public var prompt: LocalizedStringKey?
   public var stringPrompt: String?
   public var CepheusIsEnabled: Bool = true
   public var defaultLanguage: String =  "en-qwerty"
@@ -40,7 +40,7 @@ public struct CepheusKeyboard: View {
   ///   - dottedText: <#dottedText description#>
   ///   - autoCorrectionIsEnabled: <#autoCorrectionIsEnabled description#>
   ///   - onSubmit: <#onSubmit description#>
-  public init(input: Binding<String>, prompt: LocalizedStringResource = LocalizedStringResource("Cepheus.prompt", table: "Cepheus"), CepheusIsEnabled: Bool = true, defaultLanguage: String = "en-qwerty", languageDisallowRules: String = "none", allowEmojis: Bool = true, isSecure: Bool = false, displayingSecureTextIsAllowed: Bool = true, CepheusKeyboardIsDisplaying: Bool = false, dottedText: String = "", autoCorrectionIsEnabled: Bool = true, onSubmit: @escaping () -> Void = {}) {
+  public init(input: Binding<String>, prompt: LocalizedStringKey = LocalizedStringKey("Cepheus.prompt"), CepheusIsEnabled: Bool = true, defaultLanguage: String = "en-qwerty", languageDisallowRules: String = "none", allowEmojis: Bool = true, isSecure: Bool = false, displayingSecureTextIsAllowed: Bool = true, CepheusKeyboardIsDisplaying: Bool = false, dottedText: String = "", autoCorrectionIsEnabled: Bool = true, onSubmit: @escaping () -> Void = {}) {
     self.input = input
     self.prompt = prompt
     self.CepheusIsEnabled = CepheusIsEnabled
@@ -68,7 +68,7 @@ public struct CepheusKeyboard: View {
   ///   - dottedText: <#dottedText description#>
   ///   - autoCorrectionIsEnabled: <#autoCorrectionIsEnabled description#>
   ///   - onSubmit: <#onSubmit description#>
-  @_disfavoredOverload public init(input: Binding<String>, prompt: String = String(localized: LocalizedStringResource("Cepheus.prompt", table: "Cepheus")), CepheusIsEnabled: Bool = true, defaultLanguage: String = "en-qwerty", languageDisallowRules: String = "none", allowEmojis: Bool = true, isSecure: Bool = false, displayingSecureTextIsAllowed: Bool = true, CepheusKeyboardIsDisplaying: Bool = false, dottedText: String = "", autoCorrectionIsEnabled: Bool = true, onSubmit: @escaping () -> Void = {}) {
+  @_disfavoredOverload public init(input: Binding<String>, prompt: String = String(localized: "Cepheus.prompt"), CepheusIsEnabled: Bool = true, defaultLanguage: String = "en-qwerty", languageDisallowRules: String = "none", allowEmojis: Bool = true, isSecure: Bool = false, displayingSecureTextIsAllowed: Bool = true, CepheusKeyboardIsDisplaying: Bool = false, dottedText: String = "", autoCorrectionIsEnabled: Bool = true, onSubmit: @escaping () -> Void = {}) {
     self.input = input
     self.stringPrompt = prompt
     self.CepheusIsEnabled = CepheusIsEnabled
@@ -157,7 +157,7 @@ struct CepheusKeyboardMainView: View {
   var languageDisallowRules: String = "none" //Disallow languages //none, deny-all, deny-Latin, deny-CJK, English-only
   var allowEmojis: Bool = true //Allow to enter emoji or not
   var displayingSecureTextIsAllowed: Bool = true //Determine if the user is able to check password
-  var prompt: LocalizedStringResource?
+  var prompt: LocalizedStringKey?
   var stringPrompt: String?
   
   //LANGUAGES
@@ -297,7 +297,7 @@ struct CepheusKeyboardTextFieldPreviewView: View {
   @FocusState var cursorIsOnFocus: Bool
   var isSecure: Bool = false
   var displayingSecureTextIsAllowed: Bool = true
-  var prompt: LocalizedStringResource?
+  var prompt: LocalizedStringKey?
   var stringPrompt: String?
   var body: some View {
     if #available(watchOS 10.0, *) {
