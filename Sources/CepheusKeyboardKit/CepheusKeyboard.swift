@@ -206,14 +206,14 @@ struct CepheusKeyboardMainView: View {
                             textField = CepheusKeyboardAddLetter(" ", textField: textField, cursor: cursor)
                             cursor += 1
                         }, label: {
-                            Text("Cepheus.space", bundle: .module)
+                            Text(NSLocalizedString("Cepheus.space", bundle: .module, comment: ""))
                         })
                     } else {
                         Button(action: {
                             pinyinLocation += 1
                             inputPinyin = backspace(textField: inputPinyin, cursor: 1)
                         }, label: {
-                            Text("Cepheus.pinyin.ignore", bundle: .module)
+                            Text(NSLocalizedString("Cepheus.pinyin.ignore", bundle: .module, comment: ""))
                         })
                     }
                     Spacer()
