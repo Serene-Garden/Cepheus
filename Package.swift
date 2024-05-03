@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "CepheusKeyboardKit",
-    defaultLocalization: "zh-CN",
+    defaultLocalization: "en",
     platforms: [
       .watchOS(.v9)
     ],
