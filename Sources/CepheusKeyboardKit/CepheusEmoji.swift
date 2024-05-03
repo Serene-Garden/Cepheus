@@ -139,11 +139,11 @@ struct CepheusKeyboardEmojiView: View {
                         }
                       }
                     }
-                    .navigationTitle(Text("Emoji.group.recents", tableName: "Cepheus"))
+                    .navigationTitle(Text("Emoji.group.recents", bundle: .module))
                   }, label: {
                     HStack {
                       Text(emojiGroupExamples[0] ?? "🕙")
-                      Text("Emoji.group.recents", tableName: "Cepheus")
+                      Text("Emoji.group.recents", bundle: .module)
                     }
                   })
                 }
@@ -209,7 +209,7 @@ struct CepheusKeyboardEmojiView: View {
                   }
                 }
               }
-              .navigationTitle(Text("Emoji.list.title", tableName: "Cepheus"))
+              .navigationTitle(Text("Emoji.list.title", bundle: .module))
             }, label: {
               Image(systemName: "list.bullet")
             })
