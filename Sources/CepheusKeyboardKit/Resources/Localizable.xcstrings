@@ -1,6 +1,21 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
+    "[#+=]" : {
+
+    },
+    "[123]" : {
+
+    },
+    "[ABC]" : {
+
+    },
+    "%@" : {
+
+    },
     "Cepheus.pinyin.ignore" : {
       "localizations" : {
         "en" : {
@@ -2192,6 +2207,9 @@
           }
         }
       }
+    },
+    "Unknown" : {
+
     }
   },
   "version" : "1.0"
