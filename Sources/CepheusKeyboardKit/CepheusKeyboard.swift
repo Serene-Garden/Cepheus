@@ -206,14 +206,14 @@ struct CepheusKeyboardMainView: View {
                             textField = CepheusKeyboardAddLetter(" ", textField: textField, cursor: cursor)
                             cursor += 1
                         }, label: {
-                            Text(NSLocalizedString("Cepheus.space", bundle: .module, comment: ""))
+                            Text("Cepheus.space", bundle: .module)
                         })
                     } else {
                         Button(action: {
                             pinyinLocation += 1
                             inputPinyin = backspace(textField: inputPinyin, cursor: 1)
                         }, label: {
-                            Text(NSLocalizedString("Cepheus.pinyin.ignore", bundle: .module, comment: ""))
+                            Text("Cepheus.pinyin.ignore", bundle: .module)
                         })
                     }
                     Spacer()
@@ -675,8 +675,8 @@ struct CepheusKeyboardSingleKeyRowView: View {
 struct CepheusKeyboardLanguagePickerView: View {
     let languageCodes = ["en-qwerty", "zh-hans-pinyin"]
     let languageIcons = ["en-qwerty": "En", "zh-hans-pinyin": "拼"]
-    let languageNames: [String: LocalizedStringResource] = ["en-qwerty": LocalizedStringResource("Language.english", table: "Cepheus"), "zh-hans-pinyin": LocalizedStringResource("Language.chinese-simplified", table: "Cepheus")]
-    let languageFootnotes: [String: LocalizedStringResource] = ["en-qwerty": LocalizedStringResource("Language.footnote.qwerty", table: "Cepheus"), "zh-hans-pinyin": LocalizedStringResource("Language.footnote.pinyin", table: "Cepheus")]
+    let languageNames: [String: LocalizedStringResource] = ["en-qwerty": LocalizedStringResource("Language.english", bundle: .module), "zh-hans-pinyin": LocalizedStringResource("Language.chinese-simplified", bundle: .module)]
+    let languageFootnotes: [String: LocalizedStringResource] = ["en-qwerty": LocalizedStringResource("Language.footnote.qwerty", bundle: .module), "zh-hans-pinyin": LocalizedStringResource("Language.footnote.pinyin", bundle: .module)]
     let languageTypes = ["en-qwerty": "Latin", "zh-hans-pinyin": "CJK"]
     @Binding var language: String
     @Binding var textField: String
