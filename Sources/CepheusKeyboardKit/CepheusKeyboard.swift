@@ -115,7 +115,7 @@ public struct CepheusKeyboard: View {
                     })
                 })
             } else {
-                Text("Cepheus.unavailable", bundle: .module)
+                Text("Cepheus.unavailable", bundle: .atURL(Bundle.module.bundleURL))
             }
         } else {
             if !isSecure {
@@ -206,14 +206,14 @@ struct CepheusKeyboardMainView: View {
                             textField = CepheusKeyboardAddLetter(" ", textField: textField, cursor: cursor)
                             cursor += 1
                         }, label: {
-                            Text("Cepheus.space", bundle: .module)
+                            Text("Cepheus.space", bundle: .atURL(Bundle.module.bundleURL))
                         })
                     } else {
                         Button(action: {
                             pinyinLocation += 1
                             inputPinyin = backspace(textField: inputPinyin, cursor: 1)
                         }, label: {
-                            Text("Cepheus.pinyin.ignore", bundle: .module)
+                            Text("Cepheus.pinyin.ignore", bundle: .atURL(Bundle.module.bundleURL))
                         })
                     }
                     Spacer()
@@ -675,8 +675,8 @@ struct CepheusKeyboardSingleKeyRowView: View {
 struct CepheusKeyboardLanguagePickerView: View {
     let languageCodes = ["en-qwerty", "zh-hans-pinyin"]
     let languageIcons = ["en-qwerty": "En", "zh-hans-pinyin": "拼"]
-    let languageNames: [String: LocalizedStringResource] = ["en-qwerty": LocalizedStringResource("Language.english", bundle: .module), "zh-hans-pinyin": LocalizedStringResource("Language.chinese-simplified", bundle: .module)]
-    let languageFootnotes: [String: LocalizedStringResource] = ["en-qwerty": LocalizedStringResource("Language.footnote.qwerty", bundle: .module), "zh-hans-pinyin": LocalizedStringResource("Language.footnote.pinyin", bundle: .module)]
+    let languageNames: [String: LocalizedStringResource] = ["en-qwerty": LocalizedStringResource("Language.english", bundle: .atURL(Bundle.module.bundleURL)), "zh-hans-pinyin": LocalizedStringResource("Language.chinese-simplified", bundle: .atURL(Bundle.module.bundleURL))]
+    let languageFootnotes: [String: LocalizedStringResource] = ["en-qwerty": LocalizedStringResource("Language.footnote.qwerty", bundle: .atURL(Bundle.module.bundleURL)), "zh-hans-pinyin": LocalizedStringResource("Language.footnote.pinyin", bundle: .atURL(Bundle.module.bundleURL))]
     let languageTypes = ["en-qwerty": "Latin", "zh-hans-pinyin": "CJK"]
     @Binding var language: String
     @Binding var textField: String
@@ -712,17 +712,17 @@ struct CepheusKeyboardLanguagePickerView: View {
                     }
                 }
                 if languageDisallowRules == "deny-all" {
-                    Text("Language.none-available", bundle: .module)
+                    Text("Language.none-available", bundle: .atURL(Bundle.module.bundleURL))
                         .foregroundStyle(.secondary)
                 }
-                TextFieldLink(prompt: Text("Languange.use-system-keyboard.prompt", bundle: .module), label: {
+                TextFieldLink(prompt: Text("Languange.use-system-keyboard.prompt", bundle: .atURL(Bundle.module.bundleURL)), label: {
                     HStack {
                         Image(systemName: "keyboard")
                             .font(.system(size: 20))
                             .foregroundStyle(.tint)
                             .fontDesign(.rounded)
                         VStack(alignment: .leading) {
-                            Text("Language.use-system-keyboard", bundle: .module)
+                            Text("Language.use-system-keyboard", bundle: .atURL(Bundle.module.bundleURL))
                         }
                     }
                 }, onSubmit: { output in
@@ -730,7 +730,7 @@ struct CepheusKeyboardLanguagePickerView: View {
                     //          textField = output
                 })
             }
-            .navigationTitle(Text("Language.title", bundle: .module))
+            .navigationTitle(Text("Language.title", bundle: .atURL(Bundle.module.bundleURL)))
         }
     }
     func shouldDispalyLanguage(language: String, rules: String) -> Bool {
