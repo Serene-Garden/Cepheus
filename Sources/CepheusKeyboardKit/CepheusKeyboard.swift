@@ -115,7 +115,7 @@ public struct CepheusKeyboard: View {
                     })
                 })
             } else {
-                Text("Cepheus.unavailable", bundle: .atURL(Bundle.module.bundleURL))
+                Text("Cepheus.unavailable", bundle: .module)
             }
         } else {
             if !isSecure {
@@ -206,14 +206,14 @@ struct CepheusKeyboardMainView: View {
                             textField = CepheusKeyboardAddLetter(" ", textField: textField, cursor: cursor)
                             cursor += 1
                         }, label: {
-                            Text("Cepheus.space", bundle: .atURL(Bundle.module.bundleURL))
+                            Text("Cepheus.space", bundle: .module)
                         })
                     } else {
                         Button(action: {
                             pinyinLocation += 1
                             inputPinyin = backspace(textField: inputPinyin, cursor: 1)
                         }, label: {
-                            Text("Cepheus.pinyin.ignore", bundle: .atURL(Bundle.module.bundleURL))
+                            Text("Cepheus.pinyin.ignore", bundle: .module)
                         })
                     }
                     Spacer()
@@ -712,17 +712,17 @@ struct CepheusKeyboardLanguagePickerView: View {
                     }
                 }
                 if languageDisallowRules == "deny-all" {
-                    Text("Language.none-available", bundle: .atURL(Bundle.module.bundleURL))
+                    Text("Language.none-available", bundle: .module)
                         .foregroundStyle(.secondary)
                 }
-                TextFieldLink(prompt: Text("Languange.use-system-keyboard.prompt", bundle: .atURL(Bundle.module.bundleURL)), label: {
+                TextFieldLink(prompt: Text("Languange.use-system-keyboard.prompt", bundle: .module), label: {
                     HStack {
                         Image(systemName: "keyboard")
                             .font(.system(size: 20))
                             .foregroundStyle(.tint)
                             .fontDesign(.rounded)
                         VStack(alignment: .leading) {
-                            Text("Language.use-system-keyboard", bundle: .atURL(Bundle.module.bundleURL))
+                            Text("Language.use-system-keyboard", bundle: .module)
                         }
                     }
                 }, onSubmit: { output in
@@ -730,7 +730,7 @@ struct CepheusKeyboardLanguagePickerView: View {
                     //          textField = output
                 })
             }
-            .navigationTitle(Text("Language.title", bundle: .atURL(Bundle.module.bundleURL)))
+            .navigationTitle(Text("Language.title", bundle: .module))
         }
     }
     func shouldDispalyLanguage(language: String, rules: String) -> Bool {
