@@ -13,7 +13,8 @@ let screenHeight = WKInterfaceDevice.current().screenBounds.size.height
 public struct CepheusKeyboard: View {
   //Configurations
   public var input: Binding<String>
-  public var prompt: LocalizedStringResource = LocalizedStringResource("Cepheus.prompt", table: "Cepheus")
+  public var prompt: LocalizedStringResource?
+  public var stringPrompt: String?
   public var CepheusIsEnabled: Bool = true
   public var defaultLanguage: String =  "en-qwerty"
   public var languageDisallowRules: String = "none" //none, deny-all, deny-Latin, deny-CJK, English-only
@@ -25,9 +26,51 @@ public struct CepheusKeyboard: View {
   
   @State var CepheusKeyboardIsDisplaying = false
   @State var dottedText = ""
+  /// <#Description#>
+  /// - Parameters:
+  ///   - input: <#input description#>
+  ///   - prompt: <#prompt description#>
+  ///   - CepheusIsEnabled: <#CepheusIsEnabled description#>
+  ///   - defaultLanguage: <#defaultLanguage description#>
+  ///   - languageDisallowRules: <#languageDisallowRules description#>
+  ///   - allowEmojis: <#allowEmojis description#>
+  ///   - isSecure: <#isSecure description#>
+  ///   - displayingSecureTextIsAllowed: <#displayingSecureTextIsAllowed description#>
+  ///   - CepheusKeyboardIsDisplaying: <#CepheusKeyboardIsDisplaying description#>
+  ///   - dottedText: <#dottedText description#>
+  ///   - autoCorrectionIsEnabled: <#autoCorrectionIsEnabled description#>
+  ///   - onSubmit: <#onSubmit description#>
   public init(input: Binding<String>, prompt: LocalizedStringResource = LocalizedStringResource("Cepheus.prompt", table: "Cepheus"), CepheusIsEnabled: Bool = true, defaultLanguage: String = "en-qwerty", languageDisallowRules: String = "none", allowEmojis: Bool = true, isSecure: Bool = false, displayingSecureTextIsAllowed: Bool = true, CepheusKeyboardIsDisplaying: Bool = false, dottedText: String = "", autoCorrectionIsEnabled: Bool = true, onSubmit: @escaping () -> Void = {}) {
     self.input = input
     self.prompt = prompt
+    self.CepheusIsEnabled = CepheusIsEnabled
+    self.defaultLanguage = defaultLanguage
+    self.languageDisallowRules = languageDisallowRules
+    self.allowEmojis = allowEmojis
+    self.isSecure = isSecure
+    self.displayingSecureTextIsAllowed = displayingSecureTextIsAllowed
+    self.CepheusKeyboardIsDisplaying = CepheusKeyboardIsDisplaying
+    self.dottedText = dottedText
+    self.autoCorrectionIsEnabled = autoCorrectionIsEnabled
+    self.onSubmit = onSubmit
+  }
+  /// <#Description#>
+  /// - Parameters:
+  ///   - input: <#input description#>
+  ///   - prompt: <#prompt description#>
+  ///   - CepheusIsEnabled: <#CepheusIsEnabled description#>
+  ///   - defaultLanguage: <#defaultLanguage description#>
+  ///   - languageDisallowRules: <#languageDisallowRules description#>
+  ///   - allowEmojis: <#allowEmojis description#>
+  ///   - isSecure: <#isSecure description#>
+  ///   - displayingSecureTextIsAllowed: <#displayingSecureTextIsAllowed description#>
+  ///   - CepheusKeyboardIsDisplaying: <#CepheusKeyboardIsDisplaying description#>
+  ///   - dottedText: <#dottedText description#>
+  ///   - autoCorrectionIsEnabled: <#autoCorrectionIsEnabled description#>
+  ///   - onSubmit: <#onSubmit description#>
+  @_disfavoredOverload public init(input: Binding<String>, prompt: String = String(localized: LocalizedStringResource("Cepheus.prompt", table: "Cepheus")), CepheusIsEnabled: Bool = true, defaultLanguage: String = "en-qwerty", languageDisallowRules: String = "none", allowEmojis: Bool = true, isSecure: Bool = false, displayingSecureTextIsAllowed: Bool = true, CepheusKeyboardIsDisplaying: Bool = false, dottedText: String = "", autoCorrectionIsEnabled: Bool = true, onSubmit: @escaping () -> Void = {}) {
+    self.input = input
+    self.stringPrompt = prompt
     self.CepheusIsEnabled = CepheusIsEnabled
     self.defaultLanguage = defaultLanguage
     self.languageDisallowRules = languageDisallowRules
@@ -47,8 +90,13 @@ public struct CepheusKeyboard: View {
         }, label: {
           HStack {
             if input.wrappedValue.isEmpty {
-              Text(prompt)
-                .foregroundStyle(.secondary)
+              if let prompt {
+                Text(prompt)
+                  .foregroundStyle(.secondary)
+              } else if let stringPrompt {
+                Text(stringPrompt)
+                  .foregroundStyle(.secondary)
+              }
             } else {
               Text(isSecure ? dottedText : input.wrappedValue)
             }
@@ -63,7 +111,7 @@ public struct CepheusKeyboard: View {
             }
           }
           .sheet(isPresented: $CepheusKeyboardIsDisplaying, content: {
-            CepheusKeyboardMainView(input: input, defaultLanguage: defaultLanguage, isSecure: isSecure, languageDisallowRules: languageDisallowRules, allowEmojis: allowEmojis, displayingSecureTextIsAllowed: displayingSecureTextIsAllowed, prompt: prompt)
+            CepheusKeyboardMainView(input: input, defaultLanguage: defaultLanguage, isSecure: isSecure, languageDisallowRules: languageDisallowRules, allowEmojis: allowEmojis, displayingSecureTextIsAllowed: displayingSecureTextIsAllowed, prompt: prompt, stringPrompt: stringPrompt)
           })
         })
       } else {
@@ -71,18 +119,30 @@ public struct CepheusKeyboard: View {
       }
     } else {
       if !isSecure {
-        TextField(text: input, label: {Text(prompt)})
-          .autocorrectionDisabled(!autoCorrectionIsEnabled)
-          .onSubmit {
-            onSubmit()
+        TextField(text: input, label: {
+          if let prompt {
+            Text(prompt)
+          } else if let stringPrompt {
+            Text(stringPrompt)
           }
+        })
+        .autocorrectionDisabled(!autoCorrectionIsEnabled)
+        .onSubmit {
+          onSubmit()
+        }
         //        TextField(prompt, text: $input)
       } else {
-        SecureField(text: input, label: {Text(prompt)})
-          .autocorrectionDisabled(!autoCorrectionIsEnabled)
-          .onSubmit {
-            onSubmit()
+        SecureField(text: input, label: {
+          if let prompt {
+            Text(prompt)
+          } else if let stringPrompt {
+            Text(stringPrompt)
           }
+        })
+        .autocorrectionDisabled(!autoCorrectionIsEnabled)
+        .onSubmit {
+          onSubmit()
+        }
         //        SecureField(prompt, text: $input)
       }
     }
@@ -97,7 +157,8 @@ struct CepheusKeyboardMainView: View {
   var languageDisallowRules: String = "none" //Disallow languages //none, deny-all, deny-Latin, deny-CJK, English-only
   var allowEmojis: Bool = true //Allow to enter emoji or not
   var displayingSecureTextIsAllowed: Bool = true //Determine if the user is able to check password
-  var prompt: LocalizedStringResource = ""
+  var prompt: LocalizedStringResource?
+  var stringPrompt: String?
   
   //LANGUAGES
   let languageCodes = ["en-qwerty", "zh-hans-pinyin"]
@@ -121,7 +182,7 @@ struct CepheusKeyboardMainView: View {
   var body: some View {
     if #available(watchOS 10.0, *) {
       VStack {
-        CepheusKeyboardTextFieldPreviewView(textField: $textField, cursor: $cursor, pinyinLocation: $pinyinLocation, pinyinInput: $inputPinyin, language: $keyboardLanguage, isSecure: isSecure, displayingSecureTextIsAllowed: displayingSecureTextIsAllowed, prompt: prompt)
+        CepheusKeyboardTextFieldPreviewView(textField: $textField, cursor: $cursor, pinyinLocation: $pinyinLocation, pinyinInput: $inputPinyin, language: $keyboardLanguage, isSecure: isSecure, displayingSecureTextIsAllowed: displayingSecureTextIsAllowed, prompt: prompt, stringPrompt: stringPrompt)
         if keyboardLanguage == "zh-hans-pinyin" {
           CepheusPiyin(input: $textField, inputPinyin: $inputPinyin, pinyinLocation: $pinyinLocation, cursor: $cursor)
         }
@@ -236,7 +297,8 @@ struct CepheusKeyboardTextFieldPreviewView: View {
   @FocusState var cursorIsOnFocus: Bool
   var isSecure: Bool = false
   var displayingSecureTextIsAllowed: Bool = true
-  var prompt: LocalizedStringResource = ""
+  var prompt: LocalizedStringResource?
+  var stringPrompt: String?
   var body: some View {
     if #available(watchOS 10.0, *) {
       HStack {
@@ -244,8 +306,13 @@ struct CepheusKeyboardTextFieldPreviewView: View {
           ZStack {
             if (prompt != "") && textField.isEmpty {
               HStack {
-                Text(prompt)
-                  .foregroundStyle(.secondary)
+                if let prompt {
+                  Text(prompt)
+                    .foregroundStyle(.secondary)
+                } else if let stringPrompt {
+                  Text(stringPrompt)
+                    .foregroundStyle(.secondary)
+                }
                 Spacer()
               }
             }
