@@ -14,3 +14,18 @@ Watch our video to learn more.
 https://youtu.be/KvmheS6RhJw
 
 https://www.bilibili.com/video/BV1aw4m1X7m9/?spm_id_from=..search-card.all.click&vd_source=56037b56048bedd71c28cd497f5de805
+
+## Aspects
+```swift
+CepheusKeyboard(input: $input,
+                        prompt: "Email Address",
+                        CepheusIsEnabled: true,
+                        defaultLanguage: "en-qwerty",
+                        languageDisallowRules: "deny-all",
+                        allowEmojis: true,
+                        isSecure: false,
+                        displayingSecureTextIsAllowed: false)
+```
+
+### input
+`input: String` 
