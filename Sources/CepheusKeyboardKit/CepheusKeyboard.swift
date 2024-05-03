@@ -20,10 +20,11 @@ public struct CepheusKeyboard: View {
   public var allowEmojis: Bool = true
   public var isSecure: Bool = false
   public var displayingSecureTextIsAllowed: Bool = true
+   public var onSubmit: () -> Void = {}
   
   @State var CepheusKeyboardIsDisplaying = false
   @State var dottedText = ""
-  public init(input: Binding<String>, prompt: LocalizedStringResource = LocalizedStringResource("Cepheus.prompt", table: "Cepheus"), CepheusIsEnabled: Bool = true, defaultLanguage: String = "en-qwerty", languageDisallowRules: String = "none", allowEmojis: Bool = true, isSecure: Bool = false, displayingSecureTextIsAllowed: Bool = true, CepheusKeyboardIsDisplaying: Bool = false, dottedText: String = "") {
+  public init(input: Binding<String>, prompt: LocalizedStringResource = LocalizedStringResource("Cepheus.prompt", table: "Cepheus"), CepheusIsEnabled: Bool = true, defaultLanguage: String = "en-qwerty", languageDisallowRules: String = "none", allowEmojis: Bool = true, isSecure: Bool = false, displayingSecureTextIsAllowed: Bool = true, CepheusKeyboardIsDisplaying: Bool = false, dottedText: String = "", onSubmit: @escaping () -> Void = {}) {
     self.input = input
     self.prompt = prompt
     self.CepheusIsEnabled = CepheusIsEnabled
@@ -34,6 +35,7 @@ public struct CepheusKeyboard: View {
     self.displayingSecureTextIsAllowed = displayingSecureTextIsAllowed
     self.CepheusKeyboardIsDisplaying = CepheusKeyboardIsDisplaying
     self.dottedText = dottedText
+    self.onSubmit = onSubmit
   }
   public var body: some View {
     if CepheusIsEnabled {
@@ -50,8 +52,13 @@ public struct CepheusKeyboard: View {
             }
             Spacer()
           }
-          .onChange(of: CepheusKeyboardIsDisplaying) {
+          .onChange(of: input.wrappedValue) {
             dottedText = CepheusKeyboardLettersToDots(input.wrappedValue)
+          }
+          .onChange(of: CepheusKeyboardIsDisplaying) {
+            if !CepheusKeyboardIsDisplaying {
+              onSubmit()
+            }
           }
           .sheet(isPresented: $CepheusKeyboardIsDisplaying, content: {
             CepheusKeyboardMainView(input: input, defaultLanguage: defaultLanguage, isSecure: isSecure, languageDisallowRules: languageDisallowRules, allowEmojis: allowEmojis, displayingSecureTextIsAllowed: displayingSecureTextIsAllowed, prompt: prompt)
@@ -63,9 +70,15 @@ public struct CepheusKeyboard: View {
     } else {
       if !isSecure {
         TextField(text: input, label: {Text(prompt)})
+          .onSubmit {
+            onSubmit()
+          }
         //        TextField(prompt, text: $input)
       } else {
         SecureField(text: input, label: {Text(prompt)})
+          .onSubmit {
+            onSubmit()
+          }
         //        SecureField(prompt, text: $input)
       }
     }
