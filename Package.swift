@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "CepheusKeyboardKit",
+    defaultLocalization: "en",
     platforms: [
       .watchOS(.v9)
     ],
@@ -18,9 +19,8 @@ let package = Package(
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "CepheusKeyboardKit"),
-        .testTarget(
-            name: "CepheusKeyboardKitTests",
-            dependencies: ["CepheusKeyboardKit"]),
+            name: "CepheusKeyboardKit",
+            resources: [.process("Resources/Localizable.xcstrings")]
+        ),
     ]
 )

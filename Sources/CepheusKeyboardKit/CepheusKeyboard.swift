@@ -13,7 +13,7 @@ let screenHeight = WKInterfaceDevice.current().screenBounds.size.height
 public struct CepheusKeyboard: View {
   //Configurations
   public var input: Binding<String>
-  public var prompt: LocalizedStringResource = LocalizedStringResource("Cepheus.prompt", table: "Cepheus")
+  public var prompt: LocalizedStringResource = LocalizedStringResource("Cepheus.prompt", bundle: .atURL(Bundle.module.bundleURL))
   public var CepheusIsEnabled: Bool = true
   public var defaultLanguage: String =  "en-qwerty"
   public var languageDisallowRules: String = "none" //none, deny-all, deny-Latin, deny-CJK, English-only
@@ -25,7 +25,7 @@ public struct CepheusKeyboard: View {
   
   @State var CepheusKeyboardIsDisplaying = false
   @State var dottedText = ""
-  public init(input: Binding<String>, prompt: LocalizedStringResource = LocalizedStringResource("Cepheus.prompt", table: "Cepheus"), CepheusIsEnabled: Bool = true, defaultLanguage: String = "en-qwerty", languageDisallowRules: String = "none", allowEmojis: Bool = true, isSecure: Bool = false, displayingSecureTextIsAllowed: Bool = true, CepheusKeyboardIsDisplaying: Bool = false, dottedText: String = "", autoCorrectionIsEnabled: Bool = true, onSubmit: @escaping () -> Void = {}) {
+  public init(input: Binding<String>, prompt: LocalizedStringResource = "Cepheus Keyboard", CepheusIsEnabled: Bool = true, defaultLanguage: String = "en-qwerty", languageDisallowRules: String = "none", allowEmojis: Bool = true, isSecure: Bool = false, displayingSecureTextIsAllowed: Bool = true, CepheusKeyboardIsDisplaying: Bool = false, dottedText: String = "", autoCorrectionIsEnabled: Bool = true, onSubmit: @escaping () -> Void = {}) {
     self.input = input
     self.prompt = prompt
     self.CepheusIsEnabled = CepheusIsEnabled
@@ -67,7 +67,7 @@ public struct CepheusKeyboard: View {
           })
         })
       } else {
-        Text("Cepheus.unavailable", tableName: "Cepheus")
+        Text(String(localized: "Cepheus.unavailable", bundle: Bundle.module))
       }
     } else {
       if !isSecure {
@@ -145,14 +145,14 @@ struct CepheusKeyboardMainView: View {
               textField = CepheusKeyboardAddLetter(" ", textField: textField, cursor: cursor)
               cursor += 1
             }, label: {
-              Text("Cepheus.space", tableName: "Cepheus")
+              Text(String(localized: "Cepheus.space", bundle: Bundle.module))
             })
           } else {
             Button(action: {
               pinyinLocation += 1
               inputPinyin = backspace(textField: inputPinyin, cursor: 1)
             }, label: {
-              Text("Cepheus.pinyin.ignore", tableName: "Cepheus")
+              Text(String(localized: "Cepheus.pinyin.ignore", bundle: Bundle.module))
             })
           }
           Spacer()
@@ -608,8 +608,8 @@ struct CepheusKeyboardSingleKeyRowView: View {
 struct CepheusKeyboardLanguagePickerView: View {
   let languageCodes = ["en-qwerty", "zh-hans-pinyin"]
   let languageIcons = ["en-qwerty": "En", "zh-hans-pinyin": "拼"]
-  let languageNames: [String: LocalizedStringResource] = ["en-qwerty": LocalizedStringResource("Language.english", table: "Cepheus"), "zh-hans-pinyin": LocalizedStringResource("Language.chinese-simplified", table: "Cepheus")]
-  let languageFootnotes: [String: LocalizedStringResource] = ["en-qwerty": LocalizedStringResource("Language.footnote.qwerty", table: "Cepheus"), "zh-hans-pinyin": LocalizedStringResource("Language.footnote.pinyin", table: "Cepheus")]
+  let languageNames: [String: LocalizedStringResource] = ["en-qwerty": LocalizedStringResource("Language.english", bundle: .atURL(Bundle.module.bundleURL)), "zh-hans-pinyin": LocalizedStringResource("Language.chinese-simplified", bundle: .atURL(Bundle.module.bundleURL))]
+  let languageFootnotes: [String: LocalizedStringResource] = ["en-qwerty": LocalizedStringResource("Language.footnote.qwerty", bundle: .atURL(Bundle.module.bundleURL)), "zh-hans-pinyin": LocalizedStringResource("Language.footnote.pinyin", bundle: .atURL(Bundle.module.bundleURL))]
   let languageTypes = ["en-qwerty": "Latin", "zh-hans-pinyin": "CJK"]
   @Binding var language: String
   @Binding var textField: String
@@ -645,17 +645,17 @@ struct CepheusKeyboardLanguagePickerView: View {
           }
         }
         if languageDisallowRules == "deny-all" {
-          Text("Language.none-available", tableName: "Cepheus")
+          Text(String(localized: "Language.none-available", bundle: Bundle.module))
             .foregroundStyle(.secondary)
         }
-        TextFieldLink(prompt: Text("Languange.use-system-keyboard.prompt", tableName: "Cepheus"), label: {
+        TextFieldLink(prompt: Text(String(localized: "Languange.use-system-keyboard.prompt", bundle: Bundle.module)), label: {
           HStack {
             Image(systemName: "keyboard")
               .font(.system(size: 20))
               .foregroundStyle(.tint)
               .fontDesign(.rounded)
             VStack(alignment: .leading) {
-              Text("Language.use-system-keyboard", tableName: "Cepheus")
+              Text(String(localized: "Language.use-system-keyboard", bundle: Bundle.module))
             }
           }
         }, onSubmit: { output in
@@ -663,7 +663,7 @@ struct CepheusKeyboardLanguagePickerView: View {
           //          textField = output
         })
       }
-      .navigationTitle(Text("Language.title", tableName: "Cepheus"))
+      .navigationTitle(Text(String(localized: "Language.title", bundle: Bundle.module)))
     }
   }
   func shouldDispalyLanguage(language: String, rules: String) -> Bool {
