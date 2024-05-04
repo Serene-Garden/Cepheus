@@ -67,6 +67,7 @@ struct CepheusPiyin: View {
 //                praint(CepheusKeyboardAddLetter((arraySafeAccess(CepheusPinyinDictionary[onFocusPinyinSyllable] ?? [onFocusPinyinSyllable], element: character) ?? invalidPinyinReturn(onFocusPinyinSyllable, character: character)) as! String, textField: input, cursor: pinyinLocation-1))
                 pinyinLocation += ((arraySafeAccess(CepheusPinyinDictionary[onFocusPinyinSyllable] ?? [onFocusPinyinSyllable], element: character) ?? invalidPinyinReturn(onFocusPinyinSyllable, character: character)) as! String).count
                 cursor += ((arraySafeAccess(CepheusPinyinDictionary[onFocusPinyinSyllable] ?? [onFocusPinyinSyllable], element: character) ?? invalidPinyinReturn(onFocusPinyinSyllable, character: character)) as! String).count - 1
+                pinyinTab = 0
               }, label: {
                 Text((arraySafeAccess(CepheusPinyinDictionary[onFocusPinyinSyllable] ?? [onFocusPinyinSyllable], element: character) ?? invalidPinyinReturn(onFocusPinyinSyllable, character: character)) as! String)
                   .padding(.horizontal, 1)
