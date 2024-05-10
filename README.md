@@ -135,6 +135,8 @@ Cepheus collects emojis that are recently used.
 
 No any other datas are collected. No data are shared or uploaded to neither other devices nor the Internet.
 
+Cepheus won't be able to know what you've typed.
+
 ## Links
 
 https://youtu.be/KvmheS6RhJw
