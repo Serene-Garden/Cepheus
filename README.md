@@ -36,6 +36,7 @@ Just one of them.
 
 > Powered by Cepheus Keyboard
 
+If Cepheus is unable to be enabled, such as watchOS 9, then this text could be removed.
 
 ## Parameters
 ```swift
