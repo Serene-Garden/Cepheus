@@ -24,6 +24,19 @@ We developed Cepheus, allowing all users to type with a full-keyboard.
   - Input ignorable allows users to type in Latin letters.
   - Full-sized chinese punctuations are supported in keyboard.
 
+## Requirements
+
+You are responsible for adding one of the following description to your App, where evet as it could be found.
+
+Just one of them.
+
+> Powered by Cepheus
+
+> Powered by Garden Cepheus
+
+> Powered by Cepheus Keyboard
+
+
 ## Parameters
 ```swift
 CepheusKeyboard(input: $input,
