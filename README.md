@@ -26,7 +26,7 @@ We developed Cepheus, allowing all users to type with a full-keyboard.
 
 ## Requirements
 
-You are responsible for adding one of the following description to your App, where evet as it could be found.
+You are responsible for adding one of the following description to your App, where ever it is as long as it could be found.
 
 Just one of them.
 
