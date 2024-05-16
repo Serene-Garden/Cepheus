@@ -158,7 +158,7 @@ This is optional, which means you could not show this.
 
 `CepheusCreditView()` is also available if you wanted to call it.
 
-We do not wish you to remove credit from the source-code. *You could remove if you really wanna do that.*
+We do not wish you to remove credit from the source code. (*You could remove if you really wanna do that.*)
 
 
 ## Credits
