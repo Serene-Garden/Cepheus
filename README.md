@@ -24,25 +24,12 @@ We developed Cepheus, allowing all users to type with a full-keyboard.
   - Input ignorable allows users to type in Latin letters.
   - Full-sized chinese punctuations are supported in keyboard.
 
-## Requirements
-
-You are responsible for adding one of the following description to your app, where ever it is as long as it could be found.
-
-Just one of them.
-
-> Powered by Cepheus
-
-> Powered by Garden Cepheus
-
-> Powered by Cepheus Keyboard
-
-If Cepheus is unable to be enabled, such as watchOS 9, then this text could be removed.
-
 ## Parameters
 ```swift
 CepheusKeyboard(input: $input,
                         prompt: "Email Address",
                         CepheusIsEnabled: true,
+                        style: "field"
                         defaultLanguage: "en-qwerty",
                         languageDisallowRules: "none",
                         allowEmojis: true,
@@ -51,7 +38,9 @@ CepheusKeyboard(input: $input,
                         autoCorrectionIsEnable: false,
                         onSubmit: {
           print("Email Address Submitted")
-        })
+               }, label: {
+          Label("Cepheus Keyboard", systemImage: "keyboard")
+               })
 ```
 
 ### input
@@ -60,7 +49,7 @@ CepheusKeyboard(input: $input,
 ### prompt
 `prompt: LocalizedStringResource` tells users what the text field is.
 
-Prompt will be displayed on the text-edit field and the link when the input is empty.
+Prompt will be displayed on the text-edit field (when `style` is `field`) and the link when the input is empty.
 
 Default as `LocalizedStringResource("Cepheus.prompt", bundle: .atURL(Bundle.module.bundleURL))`.
 
@@ -70,6 +59,21 @@ Default as `LocalizedStringResource("Cepheus.prompt", bundle: .atURL(Bundle.modu
 If this is set to `false`, then Cepheus Keyboard goes into normal `TextField` or `SecureField` from SwiftUI.
 
 Default as `true`.
+
+### style
+`style: String` is a vital parameter when you wish to have different ways to use keyboard.
+
+`"field"` is like vanilla SwiftUI `TextField`, pops up in a sheet, displays `prompt` when empty, and shows `input` when there's something.
+
+`"link"` is still a sheet while its apprearence depends on `label`.
+
+`"page"` is a `NavigationLink` which links to a new page for typing, using `label` as its apprearence.
+
+`direct` shows the keyboard itself directly without any interactions.
+
+Default as `"field"`.
+
+Other available value: `"link"``"page"``"direct"`.
 
 ### dafaultLanguage
 `defaultLanguage: String` is useful when you expected the keyboard to have a specific default language.
@@ -126,6 +130,37 @@ This works like `onSubmit` in the native SwiftUI.
 
 Default as `{}` (runs nothing when submit)
 
+### label
+`label: @escaping () -> L = {Text("Cepheus Keyboard")}` determine the appearence of the keyboard button.
+
+It reacives a view and is used when `style` is `"link"` or `"page"`.
+
+Default as `{Text("Cepheus Keyboard")}`
+
+## Requirements
+### Declarement
+You are responsible for adding one of the following description to your app, where ever it is as long as it could be found.
+
+Just one of them.
+
+> Powered by Cepheus
+
+> Powered by Garden Cepheus
+
+> Powered by Cepheus Keyboard
+
+If Cepheus is unable to be enabled, such as watchOS 9, then this text could be removed.
+
+### About
+`CepheusSettingsView()` could be called simply. We recommend to put this somewhere in the your app settings.
+
+This is optional, which means you could not show this. 
+
+`CepheusCreditView()` is also available if you wanted to call it.
+
+We do not wish you to remove credit from the source-code. *You could remove if you really wanna do that.*
+
+
 ## Credits
 **ThreeManager785**
 - Develop
@@ -145,7 +180,7 @@ Default as `{}` (runs nothing when submit)
 > 转自船长日志, 本文链接地址: http://www.cslog.cn/Content/word-frequency-list-of-chinese/
 
 ## Privacy
-Cepheus collects emojis that are recently used.
+Cepheus collects emojis that are recently used and could be turned off manually.
 
 No any other datas are collected. No data are shared or uploaded to neither other devices nor the Internet.
 
