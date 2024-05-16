@@ -37,10 +37,10 @@ CepheusKeyboard(input: $input,
                         displayingSecureTextIsAllowed: true,
                         autoCorrectionIsEnable: false,
                         onSubmit: {
-          print("Email Address Submitted")
-               }, label: {
-          Label("Cepheus Keyboard", systemImage: "keyboard")
-               })
+                          print("Email Address Submitted")
+                        }, label: {
+                          Label("Cepheus Keyboard", systemImage: "keyboard")
+})
 ```
 
 ### input
