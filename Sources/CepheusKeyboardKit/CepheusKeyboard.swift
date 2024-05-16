@@ -131,7 +131,7 @@ public struct CepheusKeyboard<L: View>: View {
 struct CepheusKeyboardMainView: View {
   //INPUTS
   @Binding var input: String //The input text
-  var style: String = "sheet" //The keyboard displayed style
+  var style: String = "field" //The keyboard displayed style
   var defaultLanguage: String = "en-qwerty" //The default language
   var isSecure: Bool = false //Yes for entering passwords
   var languageDisallowRules: String = "none" //Disallow languages //none, deny-all, deny-Latin, deny-CJK, English-only
