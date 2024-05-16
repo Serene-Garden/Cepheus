@@ -37,6 +37,8 @@ struct CepheusKeyboardEmojiView: View {
   @State var pinyinLocation = -1
   @State var inputPinyin = ""
   @State var language = "en-qwerty"
+  @State var clearRecentUsedEmojiAlertIsPresenting = false
+  @AppStorage("CepheusRecentUsedEmojiCollectionsAllowed") var CepheusRecentUsedEmojiCollectionsAllowed = true
   var body: some View {
     if #available(watchOS 10.0, *) {
       NavigationStack {
@@ -140,6 +142,33 @@ struct CepheusKeyboardEmojiView: View {
                       }
                     }
                     .navigationTitle(Text("Emoji.group.recents", bundle: Bundle.module))
+                    .toolbar {
+                      ToolbarItem(placement: .topBarTrailing) {
+                        Button(action: {
+                          clearRecentUsedEmojiAlertIsPresenting = true
+                        }, label: {
+                          Image(systemName: "trash")
+                        })
+                      }
+                    }
+                    .alert("Emoji.group.recents.clear", isPresented: $clearRecentUsedEmojiAlertIsPresenting, actions: {
+                      Button(role: .destructive, action: {
+                        recentUsedEmojis = []
+                        UserDefaults.standard.set(recentUsedEmojis, forKey: "Cepheus-recentUsedEmoji")
+                      }, label: {
+                        HStack {
+                          Text("Emoji.group.recents.clear.confirm")
+                          Spacer()
+                        }
+                      })
+                      Button(action: {
+                        
+                      }, label: {
+                        Text("Emoji.group.recents.clear.cancel")
+                      })
+                    }, message: {
+                      Text("Emoji.group.recents.clear.message")
+                    })
                   }, label: {
                     HStack {
                       Text(emojiGroupExamples[0] ?? "🕙")
@@ -240,21 +269,25 @@ struct CepheusKeyboardEmojiView: View {
     }
   }
   func addEmojiToRecents(_ emoji: String) -> [Any] {
-    var emojiFound = -1
-    var emojiCount = -1
-    var editableArray = UserDefaults.standard.array(forKey: "Cepheus-recentUsedEmoji") ?? []
-    for element in editableArray {
-      emojiCount += 1
-      if element as! String == emoji {
-        emojiFound = emojiCount
+    if CepheusRecentUsedEmojiCollectionsAllowed {
+      var emojiFound = -1
+      var emojiCount = -1
+      var editableArray = UserDefaults.standard.array(forKey: "Cepheus-recentUsedEmoji") ?? []
+      for element in editableArray {
+        emojiCount += 1
+        if element as! String == emoji {
+          emojiFound = emojiCount
+        }
       }
+      if emojiFound != -1 {
+        editableArray.remove(at: emojiFound)
+      }
+      editableArray.insert(emoji, at: 0)
+      UserDefaults.standard.set(editableArray, forKey: "Cepheus-recentUsedEmoji")
+      return editableArray
+    } else {
+      return UserDefaults.standard.array(forKey: "Cepheus-recentUsedEmoji") ?? []
     }
-    if emojiFound != -1 {
-      editableArray.remove(at: emojiFound)
-    }
-    editableArray.insert(emoji, at: 0)
-    UserDefaults.standard.set(editableArray, forKey: "Cepheus-recentUsedEmoji")
-    return editableArray
   }
 }
 
