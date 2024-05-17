@@ -68,11 +68,23 @@ public struct CepheusKeyboard<L: View>: View {
                   label()
                 }
               })
-            } else if safeStyle == "page" {
+            } else if safeStyle == "page" || safeStyle == "field-page"  {
               NavigationLink(destination: {
                 CepheusKeyboardMainView(input: input, style: safeStyle, defaultLanguage: defaultLanguage, isSecure: isSecure, languageDisallowRules: languageDisallowRules, allowEmojis: allowEmojis, displayingSecureTextIsAllowed: displayingSecureTextIsAllowed, prompt: prompt)
               }, label: {
-                label()
+                if safeStyle == "page" {
+                  label()
+                } else {
+                  HStack {
+                    if input.wrappedValue.isEmpty {
+                      Text(prompt)
+                        .foregroundStyle(.secondary)
+                    } else {
+                      Text(isSecure ? dottedText : input.wrappedValue)
+                    }
+                    Spacer()
+                  }
+                }
               })
             } else if safeStyle == "direct" {
               CepheusKeyboardMainView(input: input, style: safeStyle, defaultLanguage: defaultLanguage, isSecure: isSecure, languageDisallowRules: languageDisallowRules, allowEmojis: allowEmojis, displayingSecureTextIsAllowed: displayingSecureTextIsAllowed, prompt: prompt)
@@ -91,19 +103,19 @@ public struct CepheusKeyboard<L: View>: View {
         }
       } else {
         if !isSecure {
-          if safeStyle == "field" {
-            TextField(text: input, label: {Text(prompt)})
-              .autocorrectionDisabled(!autoCorrectionIsEnabled)
-              .onSubmit {
-                onSubmit()
-              }
-          } else {
+          if safeStyle != "field" && safeStyle != "field-page" {
             TextFieldLink(prompt: Text(prompt), label: {
               label()
             }, onSubmit: { output in
               input.wrappedValue = output
               onSubmit()
             })
+          } else {
+            TextField(text: input, label: {Text(prompt)})
+              .autocorrectionDisabled(!autoCorrectionIsEnabled)
+              .onSubmit {
+                onSubmit()
+              }
           }
           //        TextField(prompt, text: $input)
         } else {
@@ -116,7 +128,7 @@ public struct CepheusKeyboard<L: View>: View {
       }
     }
     .onAppear {
-      if style != "field" && style != "link" && style != "page" && style != "direct" {
+      if style != "field" && style != "link" && style != "page" && style != "direct" && style != "field-page" {
         safeStyle = "field"
       } else {
         safeStyle = style
@@ -226,7 +238,7 @@ struct CepheusKeyboardMainView: View {
         textField = input //The editable text is starting in textField not input.
       }
       .toolbar {
-        if style != "page" {
+        if style != "page" && style != "field-page" {
           ToolbarItem(placement: .topBarLeading, content: {
             Button(action: {
               dismiss() //Simply close the sheet.
@@ -248,7 +260,7 @@ struct CepheusKeyboardMainView: View {
         }
       }
       .onDisappear(perform: {
-        if CepheusSaveWhenDismissed || style == "page" {
+        if CepheusSaveWhenDismissed || style == "page" || style == "field-page" {
           input = textField
         }
       })

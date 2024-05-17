@@ -8,7 +8,12 @@
 import SwiftUI
 
 public struct CepheusSettingsView: View {
-  let CepheusVersion = "1.3.1"
+  public let CepheusVersion = "1.3.2"
+  public init(CepheusLocalizedByKeyboardLanguage: Bool = true, CepheusRecentUsedEmojiCollectionsAllowed: Bool = true, CepheusSaveWhenDismissed: Bool = false) {
+    self.CepheusLocalizedByKeyboardLanguage = CepheusLocalizedByKeyboardLanguage
+    self.CepheusRecentUsedEmojiCollectionsAllowed = CepheusRecentUsedEmojiCollectionsAllowed
+    self.CepheusSaveWhenDismissed = CepheusSaveWhenDismissed
+  }
   @AppStorage("CepheusLocalizedByKeyboardLanguage") var CepheusLocalizedByKeyboardLanguage = true
   @AppStorage("CepheusRecentUsedEmojiCollectionsAllowed") var CepheusRecentUsedEmojiCollectionsAllowed = true
   @AppStorage("CepheusSaveWhenDismissed") var CepheusSaveWhenDismissed = false
@@ -68,9 +73,12 @@ public struct CepheusSettingsView: View {
   }
 }
 
-struct CepheusCreditView: View {
+public struct CepheusCreditView: View {
+  public init(CaptainLogLinkIsDisplaying: Bool = false) {
+    self.CaptainLogLinkIsDisplaying = CaptainLogLinkIsDisplaying
+  }
   @State var CaptainLogLinkIsDisplaying = false
-  var body: some View {
+  public var body: some View {
     List {
       Section(content: {
         Text(String("ThreeManager785"))
