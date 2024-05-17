@@ -69,11 +69,13 @@ Default as `true`.
 
 `"page"` is a `NavigationLink` which links to a new page for typing, using `label` as its apprearence.
 
+`"field-page"` mixed `"field"`'s appearence and  `"page"`'s interaction, which means it shows as field and navigates to a new page for the keyboard.
+
 `direct` shows the keyboard itself directly without any interactions.
 
 Default as `"field"`.
 
-Other available value: `"link"``"page"``"direct"`.
+Other available value: `"link"``"page"``"field-page"``"direct"`.
 
 ### dafaultLanguage
 `defaultLanguage: String` is useful when you expected the keyboard to have a specific default language.
