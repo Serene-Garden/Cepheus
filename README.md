@@ -63,15 +63,11 @@ Default as `true`.
 ### style
 `style: String` is a vital parameter when you wish to have different ways to use keyboard.
 
-`"field"` is like vanilla SwiftUI `TextField`, pops up in a sheet, displays `prompt` when empty, and shows `input` when there's something.
-
-`"link"` is still a sheet while its apprearence depends on `label`.
-
-`"page"` is a `NavigationLink` which links to a new page for typing, using `label` as its apprearence.
-
-`"field-page"` mixed `"field"`'s appearence and  `"page"`'s interaction, which means it shows as field and navigates to a new page for the keyboard.
-
-`direct` shows the keyboard itself directly without any interactions.
+- `"field"` is like vanilla SwiftUI `TextField`, pops up in a sheet, displays `prompt` when empty, and shows `input` when there's something.
+- `"link"` is still a sheet while its apprearence depends on `label`.
+- `"page"` is a `NavigationLink` which links to a new page for typing, using `label` as its apprearence.
+- `"field-page"` mixed `"field"`'s appearence and  `"page"`'s interaction, which means it shows as field and navigates to a new page for the keyboard.
+- `direct` shows the keyboard itself directly without any interactions.
 
 Default as `"field"`.
 
