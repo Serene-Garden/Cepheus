@@ -70,7 +70,7 @@ public struct CepheusKeyboard<L: View>: View {
               })
             } else if safeStyle == "page" || safeStyle == "field-page"  {
               NavigationLink(destination: {
-                CepheusKeyboardMainView(input: input, style: safeStyle, defaultLanguage: defaultLanguage, isSecure: isSecure, languageDisallowRules: languageDisallowRules, allowEmojis: allowEmojis, displayingSecureTextIsAllowed: displayingSecureTextIsAllowed, prompt: prompt)
+                CepheusKeyboardMainView(input: input, style: safeStyle, defaultLanguage: defaultLanguage, isSecure: isSecure, languageDisallowRules: languageDisallowRules, allowEmojis: allowEmojis, displayingSecureTextIsAllowed: displayingSecureTextIsAllowed, prompt: prompt, onSubmit: onSubmit)
               }, label: {
                 if safeStyle == "page" {
                   label()
@@ -87,16 +87,11 @@ public struct CepheusKeyboard<L: View>: View {
                 }
               })
             } else if safeStyle == "direct" {
-              CepheusKeyboardMainView(input: input, style: safeStyle, defaultLanguage: defaultLanguage, isSecure: isSecure, languageDisallowRules: languageDisallowRules, allowEmojis: allowEmojis, displayingSecureTextIsAllowed: displayingSecureTextIsAllowed, prompt: prompt)
+              CepheusKeyboardMainView(input: input, style: safeStyle, defaultLanguage: defaultLanguage, isSecure: isSecure, languageDisallowRules: languageDisallowRules, allowEmojis: allowEmojis, displayingSecureTextIsAllowed: displayingSecureTextIsAllowed, prompt: prompt, onSubmit: onSubmit)
             }
           }
           .onChange(of: input.wrappedValue) {
             dottedText = CepheusKeyboardLettersToDots(input.wrappedValue)
-          }
-          .onChange(of: CepheusKeyboardIsDisplaying) {
-            if !CepheusKeyboardIsDisplaying {
-              onSubmit()
-            }
           }
         } else {
           Text(String(localized: "Cepheus.unavailable", bundle: Bundle.module))
@@ -135,7 +130,7 @@ public struct CepheusKeyboard<L: View>: View {
       }
     }
     .sheet(isPresented: $CepheusKeyboardIsDisplaying, content: {
-      CepheusKeyboardMainView(input: input, style: safeStyle, defaultLanguage: defaultLanguage, isSecure: isSecure, languageDisallowRules: languageDisallowRules, allowEmojis: allowEmojis, displayingSecureTextIsAllowed: displayingSecureTextIsAllowed, prompt: prompt)
+      CepheusKeyboardMainView(input: input, style: safeStyle, defaultLanguage: defaultLanguage, isSecure: isSecure, languageDisallowRules: languageDisallowRules, allowEmojis: allowEmojis, displayingSecureTextIsAllowed: displayingSecureTextIsAllowed, prompt: prompt, onSubmit: onSubmit)
     })
   }
 }
@@ -150,6 +145,7 @@ struct CepheusKeyboardMainView: View {
   var allowEmojis: Bool = true //Allow to enter emoji or not
   var displayingSecureTextIsAllowed: Bool = true //Determine if the user is able to check password
   var prompt: LocalizedStringResource = ""
+  var onSubmit: () -> Void = {}
   //  var localizedByKeyboardLanguage = CepheusLocalizedByKeyboardLanguage
   
   //LANGUAGES
@@ -250,6 +246,7 @@ struct CepheusKeyboardMainView: View {
             ToolbarItem(placement: .confirmationAction, content: {
               Button(action: {
                 input = textField //Save the content then close.
+                onSubmit()
                 dismiss()
               }, label: {
                 Image(systemName: "checkmark")
@@ -262,6 +259,7 @@ struct CepheusKeyboardMainView: View {
       .onDisappear(perform: {
         if CepheusSaveWhenDismissed || style == "page" || style == "field-page" {
           input = textField
+          onSubmit()
         }
       })
       .ignoresSafeArea(edges: .bottom)
