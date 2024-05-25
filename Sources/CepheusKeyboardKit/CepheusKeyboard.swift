@@ -777,7 +777,6 @@ struct CepheusLabel: View {
           Text(String(localized: localizedStringKey, bundle: Bundle.module))
         }
       }
-      
     }
   }
 }
