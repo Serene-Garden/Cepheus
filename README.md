@@ -36,6 +36,7 @@ CepheusKeyboard(input: $input,
                         isSecure: false,
                         displayingSecureTextIsAllowed: true,
                         autoCorrectionIsEnable: false,
+                        aboutLinkIsHidden: false,
                         onSubmit: {
                           print("Email Address Submitted")
                         }, label: {
@@ -113,6 +114,13 @@ Tapping the icon will toggle the text between hidden and readable status.
 When `false`, there will be no eye icon and the text will be hidden. This parameter is meaningless when `isSecure` is `false`.
 
 Default as `true`
+
+### aboutLinkIsHidden
+`aboutLinkIsHidden: Bool` affects the language sheet, determine if the About link in it will be hidden or not.
+
+Please use `CephuesSettings()` to add a link to the About page if you hide it.
+
+Default as `false`
 
 ### autoCorrectionIsEnabled
 `autoCorrectionIsEnabled: Bool` determines if autocorrection is allowed.
