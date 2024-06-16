@@ -801,7 +801,7 @@ func CepheusKeyboardAddLetter(_ letter: String, textField: String, cursor: Int) 
 func CepheusKeyboardLettersToDots(_ letters: String) -> String {
   var output = ""
   for _ in letters {
-    output.append("●")
+    output.append("•")
   }
   return output
 }
