@@ -68,7 +68,7 @@ Default as `true`.
 - `"link"` is still a sheet while its apprearence depends on `label`.
 - `"page"` is a `NavigationLink` which links to a new page for typing, using `label` as its apprearence.
 - `"field-page"` mixed `"field"`'s appearence and  `"page"`'s interaction, which means it shows as field and navigates to a new page for the keyboard.
-- `direct` shows the keyboard itself directly without any interactions.
+- `direct` shows the keyboard itself directly without any navigation.
 
 Default as `"field"`.
 
