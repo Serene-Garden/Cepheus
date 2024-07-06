@@ -7,7 +7,7 @@ let package = Package(
     name: "Cepheus",
     defaultLocalization: "en",
     platforms: [
-      .watchOS(.v9)
+      .watchOS(.v7)
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.

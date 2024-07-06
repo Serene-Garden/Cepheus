@@ -178,6 +178,8 @@ When Cepheus is called for the first time, Cepheus will disable itself when the 
 
 When parameter `CepheusIsEnabled` is given, Cepheus use this value first.
 
+When system number is under 10, Cepheus never toggles.
+
 ### CepheusSettingsView
 `CepheusEnablingToggle: View` is the same view as where the "about" link in the language sheet takes you to.
 

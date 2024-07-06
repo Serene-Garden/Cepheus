@@ -132,11 +132,17 @@ public struct CepheusKeyboard<L: View>: View {
       if isFirstUse {
         isFirstUse = false
         if watchSize.height != 242 && watchSize.height != 215 && watchSize.height != 251 {
-          internalCepheusIsEnabled = true
+          if #available(watchOS 10.0, *) {
+            internalCepheusIsEnabled = true
+          }
         }
       }
       if CepheusIsEnabled != nil {
-        useCepheus = CepheusIsEnabled!
+        if #available(watchOS 10.0, *) {
+          useCepheus = CepheusIsEnabled!
+        } else {
+          useCepheus = false
+        }
       } else {
         useCepheus = internalCepheusIsEnabled
       }
