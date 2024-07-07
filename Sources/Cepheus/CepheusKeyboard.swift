@@ -160,12 +160,18 @@ public struct CepheusKeyboard<L: View>: View {
 
 public struct CepheusEnablingToggle: View {
   @AppStorage("internalCepheusIsEnabled") var internalCepheusIsEnabled = false
-  public init(internalCepheusIsEnabled: Bool = false) {
+  public var showSymbol: Bool = false
+  public init(internalCepheusIsEnabled: Bool = false, showSymbol: Bool = false) {
     self.internalCepheusIsEnabled = internalCepheusIsEnabled
+    self.showSymbol = showSymbol
   }
   public var body: some View {
     Toggle(isOn: $internalCepheusIsEnabled, label: {
-      Label("Cepheus.toggle", systemImage: "keyboard")
+      if showSymbol {
+        Label(String(localized: "Cepheus.toggle", bundle: Bundle.module), systemImage: "keyboard")
+      } else {
+        Text(String(localized: "Cepheus.toggle", bundle: Bundle.module))
+      }
     })
   }
 }
