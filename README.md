@@ -172,7 +172,9 @@ We do not wish you to remove credit from the source code. (*You could remove if 
 
 ## Other Available Structures
 ### CepheusEnablingToggle
-`CepheusEnablingToggle: View` requires no parameter and only gives a toggle, which allows users to choose if they want to use Cepheus or not.
+`CepheusEnablingToggle: View` only gives a toggle, which allows users to choose if they want to use Cepheus or not.
+
+Add paramter `showSymbol: Bool` to show symbol for the toggle.
 
 When Cepheus is called for the first time, Cepheus will disable itself when the device size is 41mm, 44mm or 49mm (which supports native full-keyboard). Users are able to toggle if Cephues is used via `CepheusEnbalingToggle`.
 
