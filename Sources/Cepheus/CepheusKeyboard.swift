@@ -34,7 +34,7 @@ public struct CepheusKeyboard<L: View>: View {
   @State var useCepheus = false
   @State var isFirstUse = true
   @AppStorage("internalCepheusIsEnabled") var internalCepheusIsEnabled = false
-  public init(input: Binding<String>, prompt: LocalizedStringResource = "Cepheus Keyboard", CepheusIsEnabled: Bool = true, style: String = "field", defaultLanguage: String = "en-qwerty", languageDisallowRules: String = "none", allowEmojis: Bool = true, isSecure: Bool = false, displayingSecureTextIsAllowed: Bool = true, CepheusKeyboardIsDisplaying: Bool = false, dottedText: String = "", autoCorrectionIsEnabled: Bool = true, aboutLinkIsHidden: Bool = false, onSubmit: @escaping () -> Void = {}, label: @escaping () -> L = {Text("Cepheus Keyboard")}) {
+  public init(input: Binding<String>, prompt: LocalizedStringResource = "Cepheus Keyboard", CepheusIsEnabled: Bool? = nil, style: String = "field", defaultLanguage: String = "en-qwerty", languageDisallowRules: String = "none", allowEmojis: Bool = true, isSecure: Bool = false, displayingSecureTextIsAllowed: Bool = true, CepheusKeyboardIsDisplaying: Bool = false, dottedText: String = "", autoCorrectionIsEnabled: Bool = true, aboutLinkIsHidden: Bool = false, onSubmit: @escaping () -> Void = {}, label: @escaping () -> L = {Text("Cepheus Keyboard")}) {
     self.input = input
     self.prompt = prompt
     self.CepheusIsEnabled = CepheusIsEnabled
@@ -74,6 +74,8 @@ public struct CepheusKeyboard<L: View>: View {
                   label()
                 }
               })
+              .accessibilityAddTraits(.isSearchField)
+              .accessibilityRemoveTraits(.isButton)
             } else if safeStyle == "page" || safeStyle == "field-page"  {
               NavigationLink(destination: {
                 CepheusKeyboardMainView(input: input, style: safeStyle, defaultLanguage: defaultLanguage, isSecure: isSecure, languageDisallowRules: languageDisallowRules, allowEmojis: allowEmojis, displayingSecureTextIsAllowed: displayingSecureTextIsAllowed, aboutLinkIsHidden: aboutLinkIsHidden, prompt: prompt, onSubmit: onSubmit)
@@ -161,8 +163,7 @@ public struct CepheusKeyboard<L: View>: View {
 public struct CepheusEnablingToggle: View {
   @AppStorage("internalCepheusIsEnabled") var internalCepheusIsEnabled = false
   public var showSymbol: Bool = false
-  public init(internalCepheusIsEnabled: Bool = false, showSymbol: Bool = false) {
-    self.internalCepheusIsEnabled = internalCepheusIsEnabled
+  public init(showSymbol: Bool = false) {
     self.showSymbol = showSymbol
   }
   public var body: some View {
@@ -664,6 +665,8 @@ struct CepheusKeyboardSingleKeyRowView: View {
             }
           })
           .frame(width: screenWidth/keySpaceDividedNumber)
+          .accessibilityAddTraits(.isKeyboardKey)
+          .accessibilityRemoveTraits(.isButton)
         }
         if isLastRow {
           Spacer()
