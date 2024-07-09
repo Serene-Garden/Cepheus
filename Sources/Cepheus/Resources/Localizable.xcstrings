@@ -2434,7 +2434,6 @@
       }
     },
     "Languange.use-system-keyboard.prompt" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

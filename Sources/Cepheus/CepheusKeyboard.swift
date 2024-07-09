@@ -34,7 +34,7 @@ public struct CepheusKeyboard<L: View>: View {
   @State var useCepheus = false
   @State var isFirstUse = true
   @AppStorage("internalCepheusIsEnabled") var internalCepheusIsEnabled = false
-  public init(input: Binding<String>, prompt: LocalizedStringResource = "Cepheus Keyboard", CepheusIsEnabled: Bool? = nil, style: String = "field", defaultLanguage: String = "en-qwerty", languageDisallowRules: String = "none", allowEmojis: Bool = true, isSecure: Bool = false, displayingSecureTextIsAllowed: Bool = true, CepheusKeyboardIsDisplaying: Bool = false, dottedText: String = "", autoCorrectionIsEnabled: Bool = true, aboutLinkIsHidden: Bool = false, onSubmit: @escaping () -> Void = {}, label: @escaping () -> L = {Text("Cepheus Keyboard")}) {
+  public init(input: Binding<String>, prompt: LocalizedStringResource = "Cepheus Keyboard", CepheusIsEnabled: Bool? = nil, style: String = "field", defaultLanguage: String = "en-qwerty", languageDisallowRules: String = "none", allowEmojis: Bool = true, isSecure: Bool = false, displayingSecureTextIsAllowed: Bool = true, CepheusKeyboardIsDisplaying: Bool = false, dottedText: String = "", autoCorrectionIsEnabled: Bool = true, aboutLinkIsHidden: Bool = false, swipeToDelete: Bool = true, onSubmit: @escaping () -> Void = {}, label: @escaping () -> L = {Text("Cepheus Keyboard")}) {
     self.input = input
     self.prompt = prompt
     self.CepheusIsEnabled = CepheusIsEnabled
@@ -74,6 +74,13 @@ public struct CepheusKeyboard<L: View>: View {
                   label()
                 }
               })
+              .swipeActions(edge: .trailing) {
+                Button(role: .destructive, action: {
+                  input.wrappedValue = ""
+                }, label: {
+                  Image(systemName: "xmark")
+                })
+              }
               .accessibilityAddTraits(.isSearchField)
               .accessibilityRemoveTraits(.isButton)
             } else if safeStyle == "page" || safeStyle == "field-page"  {
@@ -94,6 +101,13 @@ public struct CepheusKeyboard<L: View>: View {
                   }
                 }
               })
+              .swipeActions(edge: .trailing) {
+                Button(role: .destructive, action: {
+                  input.wrappedValue = ""
+                }, label: {
+                  Image(systemName: "xmark")
+                })
+              }
             } else if safeStyle == "direct" {
               CepheusKeyboardMainView(input: input, style: safeStyle, defaultLanguage: defaultLanguage, isSecure: isSecure, languageDisallowRules: languageDisallowRules, allowEmojis: allowEmojis, displayingSecureTextIsAllowed: displayingSecureTextIsAllowed, aboutLinkIsHidden: aboutLinkIsHidden, prompt: prompt, onSubmit: onSubmit)
             }
@@ -119,13 +133,26 @@ public struct CepheusKeyboard<L: View>: View {
               .onSubmit {
                 onSubmit()
               }
+              .swipeActions(edge: .trailing) {
+                Button(role: .destructive, action: {
+                  input.wrappedValue = ""
+                }, label: {
+                  Image(systemName: "xmark")
+                })
+              }
           }
-          //        TextField(prompt, text: $input)
         } else {
           SecureField(text: input, label: {Text(prompt)})
             .autocorrectionDisabled(!autoCorrectionIsEnabled)
             .onSubmit {
               onSubmit()
+            }
+            .swipeActions(edge: .trailing) {
+              Button(role: .destructive, action: {
+                input.wrappedValue = ""
+              }, label: {
+                Image(systemName: "xmark")
+              })
             }
         }
       }
