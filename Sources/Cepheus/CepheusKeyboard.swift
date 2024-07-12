@@ -75,10 +75,11 @@ public struct CepheusKeyboard<L: View>: View {
                 }
               })
               .swipeActions(edge: .trailing) {
-                Button(role: .destructive, action: {
+                Button(action: {
                   input.wrappedValue = ""
                 }, label: {
                   Image(systemName: "xmark")
+                    .foregroundStyle(.red)
                 })
               }
               .accessibilityAddTraits(.isSearchField)
@@ -102,10 +103,11 @@ public struct CepheusKeyboard<L: View>: View {
                 }
               })
               .swipeActions(edge: .trailing) {
-                Button(role: .destructive, action: {
+                Button(action: {
                   input.wrappedValue = ""
                 }, label: {
                   Image(systemName: "xmark")
+                    .foregroundStyle(.red)
                 })
               }
             } else if safeStyle == "direct" {
@@ -134,10 +136,11 @@ public struct CepheusKeyboard<L: View>: View {
                 onSubmit()
               }
               .swipeActions(edge: .trailing) {
-                Button(role: .destructive, action: {
+                Button(action: {
                   input.wrappedValue = ""
                 }, label: {
                   Image(systemName: "xmark")
+                    .foregroundStyle(.red)
                 })
               }
           }
@@ -148,10 +151,11 @@ public struct CepheusKeyboard<L: View>: View {
               onSubmit()
             }
             .swipeActions(edge: .trailing) {
-              Button(role: .destructive, action: {
+              Button(action: {
                 input.wrappedValue = ""
               }, label: {
                 Image(systemName: "xmark")
+                  .foregroundStyle(.red)
               })
             }
         }
