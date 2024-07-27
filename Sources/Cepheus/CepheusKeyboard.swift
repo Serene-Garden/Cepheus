@@ -186,7 +186,9 @@ public struct CepheusKeyboard<L: View>: View {
       }
     }
     .sheet(isPresented: $CepheusKeyboardIsDisplaying, content: {
-      CepheusKeyboardMainView(input: input, style: safeStyle, defaultLanguage: defaultLanguage, isSecure: isSecure, languageDisallowRules: languageDisallowRules, allowEmojis: allowEmojis, displayingSecureTextIsAllowed: displayingSecureTextIsAllowed, aboutLinkIsHidden: aboutLinkIsHidden, prompt: prompt, onSubmit: onSubmit)
+      NavigationStack {
+        CepheusKeyboardMainView(input: input, style: safeStyle, defaultLanguage: defaultLanguage, isSecure: isSecure, languageDisallowRules: languageDisallowRules, allowEmojis: allowEmojis, displayingSecureTextIsAllowed: displayingSecureTextIsAllowed, aboutLinkIsHidden: aboutLinkIsHidden, prompt: prompt, onSubmit: onSubmit)
+      }
     })
   }
 }
