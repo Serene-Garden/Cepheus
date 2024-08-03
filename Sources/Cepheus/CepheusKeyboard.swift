@@ -162,6 +162,9 @@ public struct CepheusKeyboard<L: View>: View {
       }
     }
     .onAppear {
+      if #unavailable(watchOS 10.0) {
+        internalCepheusIsEnabled = false
+      }
       if isFirstUse {
         isFirstUse = false
         if watchSize.height != 242 && watchSize.height != 215 && watchSize.height != 251 {
