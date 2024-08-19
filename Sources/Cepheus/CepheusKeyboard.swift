@@ -32,7 +32,7 @@ public struct CepheusKeyboard<L: View>: View {
   @State var dottedText = ""
   @State var safeStyle = "field"
   @State var useCepheus = false
-  @State var isFirstUse = true
+  @AppStorage("isFirstUse") var isFirstUse = true
   @AppStorage("internalCepheusIsEnabled") var internalCepheusIsEnabled = false
   public init(input: Binding<String>, prompt: LocalizedStringResource = "Cepheus Keyboard", CepheusIsEnabled: Bool? = nil, style: String = "field", defaultLanguage: String = "en-qwerty", languageDisallowRules: String = "none", allowEmojis: Bool = true, isSecure: Bool = false, displayingSecureTextIsAllowed: Bool = true, CepheusKeyboardIsDisplaying: Bool = false, dottedText: String = "", autoCorrectionIsEnabled: Bool = true, aboutLinkIsHidden: Bool = false, onSubmit: @escaping () -> Void = {}, label: @escaping () -> L = {Text("Cepheus Keyboard")}) {
     self.input = input
