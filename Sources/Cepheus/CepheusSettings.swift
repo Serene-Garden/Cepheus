@@ -8,7 +8,7 @@
 import SwiftUI
 
 public struct CepheusSettingsView: View {
-  public let CepheusVersion = "2.4.1"
+  public let CepheusVersion = "2.4.2"
   public init() {}
   @AppStorage("CepheusLocalizedByKeyboardLanguage") var CepheusLocalizedByKeyboardLanguage = true
   @AppStorage("CepheusRecentUsedEmojiCollectionsAllowed") var CepheusRecentUsedEmojiCollectionsAllowed = true
