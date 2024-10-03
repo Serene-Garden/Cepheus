@@ -20,7 +20,11 @@ let package = Package(
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "Cepheus",
-            resources: [.process("Resources/Localizable.xcstrings")]
+            resources: [
+                .process("Resources/Localizable.xcstrings"),
+                .copy("Resources/EmojiDictionary.plist"),
+                .copy("Resources/PinyinDictionary.plist")
+            ]
         ),
     ]
 )
