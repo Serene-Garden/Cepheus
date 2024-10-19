@@ -142,7 +142,7 @@ func groupedPinyin(input: String) -> [String] {
       case "a":
         syllable = a_ability(letters, cursor: composerCursor)
       case "b":
-        syllable = "b" + connectVowels(letters, cursor: composerCursor, allowments: ["a": true, "ai": true, "ang": true, "ao": true, "ei": true, "en": true, "eng": true, "i": true, "ian": true, "iao": true, "ie": true, "in": true, "ing": true, "o": true, "u": true])
+        syllable = "b" + connectVowels(letters, cursor: composerCursor, allowments: ["a": true, "ai": true, "an": true, "ang": true, "ao": true, "ei": true, "en": true, "eng": true, "i": true, "ian": true, "iao": true, "ie": true, "in": true, "ing": true, "o": true, "u": true])
       case "c":
         if (arraySafeAccess(letters, element: composerCursor+1) ?? "") as! String == "h" {
           syllable = "ch" + connectVowels(letters, cursor: composerCursor, allowments: ["a": true, "ai": true, "an": true, "ang": true, "ao": true, "e": true, "en": true, "eng": true, "i": true, "ong": true, "ou": true, "u": true, "ua": true, "uai": true, "uan": true, "uang": true, "ui": true, "un": true, "uo": true], isSyllableDoubleLetter: true)
