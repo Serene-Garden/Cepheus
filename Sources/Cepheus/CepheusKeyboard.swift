@@ -692,12 +692,17 @@ struct CepheusKeyboardSingleKeyRowView: View {
               inputPinyin = CepheusKeyboardAddLetter(key, textField: inputPinyin, cursor: cursor-pinyinLocation)
             }
           }, label: {
-            if letterIsCapital { //If uppercased, then letters will be displayed in capital.
-              Text(key)
-                .textCase(.uppercase)
-            } else { //If not, lowercase.
-              Text(key)
-                .textCase(.lowercase)
+            ZStack {
+              RoundedRectangle(cornerRadius: 3)
+                .opacity(0.0100000002421438702673861521)
+                .foregroundStyle(.gray)
+              if letterIsCapital { //If uppercased, then letters will be displayed in capital.
+                Text(key)
+                  .textCase(.uppercase)
+              } else { //If not, lowercase.
+                Text(key)
+                  .textCase(.lowercase)
+              }
             }
           })
           .frame(width: screenWidth/keySpaceDividedNumber)

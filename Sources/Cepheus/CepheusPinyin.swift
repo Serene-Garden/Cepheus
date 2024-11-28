@@ -156,7 +156,7 @@ func groupedPinyin(input: String) -> [String] {
       case "f":
         syllable = "f" + connectVowels(letters, cursor: composerCursor, allowments: ["a": true, "an": true, "ang": true, "ei": true, "en": true, "eng": true, "o": true, "ou": true, "u": true])
       case "g":
-        syllable = "g" + connectVowels(letters, cursor: composerCursor, allowments: ["a": true, "ai": true, "an": true, "ang": true, "ao": true, "e": true, "ei": true, "en": true, "eng": true, "ong": true, "ou": true, "u": true, "ua": true, "uai": true, "uan": true, "uang": true, "uo": true])
+        syllable = "g" + connectVowels(letters, cursor: composerCursor, allowments: ["a": true, "ai": true, "an": true, "ang": true, "ao": true, "e": true, "ei": true, "en": true, "eng": true, "ong": true, "ou": true, "u": true, "ua": true, "uai": true, "uan": true, "uang": true, "uo": true, "un": true])
       case "h":
         syllable = "h" + connectVowels(letters, cursor: composerCursor, allowments: ["a": true, "ai": true, "an": true, "ang": true, "ao": true, "e": true, "ei": true, "en": true, "eng": true, "ong": true, "ou": true, "u": true, "ua": true, "uai": true, "uan": true, "uang": true, "ui": true, "un": true, "uo": true])
       case "i":
