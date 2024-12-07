@@ -23,15 +23,17 @@ import SwiftUI
 //  }
 //}
 
+private let CepheusPinyinDictionary: [String: [String]] = {
+  NSDictionary(contentsOf: Bundle.module.url(forResource: "PinyinDictionary", withExtension: "plist")!)! as! [String: [String]]
+}()
+//Isolation
+
 struct CepheusPiyin: View {
   //Isolation
   //Pinyin sorted alphabetical, characters sorted in frequentation
   //Add characters to this dictionary if you want
   //Total of 8453 characters
-  private let CepheusPinyinDictionary: [String: [String]] = {
-    NSDictionary(contentsOf: Bundle.module.url(forResource: "PinyinDictionary", withExtension: "plist")!)! as! [String: [String]]
-  }()
-  //Isolation
+  
   
   @Binding var input: String //TEXTFIELD
   @Binding var inputPinyin: String

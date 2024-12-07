@@ -7,10 +7,12 @@
 
 import SwiftUI
 
+private let cepheusEmojiDictionary: [String: [String: [String]]] = {
+  NSDictionary(contentsOf: Bundle.module.url(forResource: "EmojiDictionary", withExtension: "plist")!)! as! [String: [String: [String]]]
+}()
+
 struct CepheusKeyboardEmojiView: View {
-  private let cepheusEmojiDictionary: [String: [String: [String]]] = {
-    NSDictionary(contentsOf: Bundle.module.url(forResource: "EmojiDictionary", withExtension: "plist")!)! as! [String: [String: [String]]]
-  }()
+  
   
   let emojiGroupNames: [String: LocalizedStringResource] = ["1": LocalizedStringResource("Emoji.group.1", bundle: .atURL(Bundle.module.bundleURL)), "2": LocalizedStringResource("Emoji.group.2", bundle: .atURL(Bundle.module.bundleURL)), "3": LocalizedStringResource("Emoji.group.3", bundle: .atURL(Bundle.module.bundleURL)), "4": LocalizedStringResource("Emoji.group.4", bundle: .atURL(Bundle.module.bundleURL)), "5": LocalizedStringResource("Emoji.group.5", bundle: .atURL(Bundle.module.bundleURL)), "6": LocalizedStringResource("Emoji.group.6", bundle: .atURL(Bundle.module.bundleURL)), "7": LocalizedStringResource("Emoji.group.7", bundle: .atURL(Bundle.module.bundleURL)), "8": LocalizedStringResource("Emoji.group.8", bundle: .atURL(Bundle.module.bundleURL)), "9": LocalizedStringResource("Emoji.group.9", bundle: .atURL(Bundle.module.bundleURL)), "10": LocalizedStringResource("Emoji.group.10", bundle: .atURL(Bundle.module.bundleURL))]
   let emojiGroupNamesShortened: [String: LocalizedStringResource] = ["1": LocalizedStringResource("Emoji.group.1.shortened", bundle: .atURL(Bundle.module.bundleURL)), "2": LocalizedStringResource("Emoji.group.2.shortened", bundle: .atURL(Bundle.module.bundleURL)), "3": LocalizedStringResource("Emoji.group.3.shortened", bundle: .atURL(Bundle.module.bundleURL)), "4": LocalizedStringResource("Emoji.group.4.shortened", bundle: .atURL(Bundle.module.bundleURL)), "5": LocalizedStringResource("Emoji.group.5.shortened", bundle: .atURL(Bundle.module.bundleURL)), "6": LocalizedStringResource("Emoji.group.6.shortened", bundle: .atURL(Bundle.module.bundleURL)), "7": LocalizedStringResource("Emoji.group.7.shortened", bundle: .atURL(Bundle.module.bundleURL)), "8": LocalizedStringResource("Emoji.group.8.shortened", bundle: .atURL(Bundle.module.bundleURL)), "9": LocalizedStringResource("Emoji.group.9.shortened", bundle: .atURL(Bundle.module.bundleURL)), "10": LocalizedStringResource("Emoji.group.10.shortened", bundle: .atURL(Bundle.module.bundleURL))]
