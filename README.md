@@ -178,7 +178,7 @@ Add paramter `showSymbol: Bool` to show symbol for the toggle.
 
 When Cepheus is called for the first time, Cepheus will disable itself when the device size is 41mm, 44mm or 49mm (which supports native full-keyboard).
 
-Developers should make toggle its availablity `@AppStorage("internalCepheusIsEnabled") var internalCepheusIsEnabled = false`. 
+Developers should make toggle its availablity `@AppStorage("internalCepheusIsEnabled")`. 
 
 (Please hide the toggle in watchOS 9 cause it's meaningless.)
 
