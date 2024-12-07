@@ -196,23 +196,6 @@ public struct CepheusKeyboard<L: View>: View {
   }
 }
 
-public struct CepheusEnablingToggle: View {
-  @AppStorage("internalCepheusIsEnabled") var internalCepheusIsEnabled = false
-  public var showSymbol: Bool = false
-  public init(showSymbol: Bool = false) {
-    self.showSymbol = showSymbol
-  }
-  public var body: some View {
-    Toggle(isOn: $internalCepheusIsEnabled, label: {
-      if showSymbol {
-        Label(String(localized: "Cepheus.toggle", bundle: Bundle.module), systemImage: "keyboard")
-      } else {
-        Text(String(localized: "Cepheus.toggle", bundle: Bundle.module))
-      }
-    })
-  }
-}
-
 struct CepheusKeyboardMainView: View {
   //INPUTS
   @Binding var input: String //The input text
