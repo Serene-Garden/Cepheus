@@ -54,6 +54,7 @@ struct CepheusPiyin: View {
                 Image(systemName: "chevron.compact.left")
                   .padding(.trailing, 5)
               })
+              .contentShape(Rectangle())
             }
             Spacer()
             ForEach(pinyinTab*6..<pinyinTab*6+6, id: \.self) { character in
@@ -74,6 +75,7 @@ struct CepheusPiyin: View {
                 Text((arraySafeAccess(CepheusPinyinDictionary[onFocusPinyinSyllable] ?? [onFocusPinyinSyllable], element: character) ?? invalidPinyinReturn(onFocusPinyinSyllable, character: character)) as! String)
                   .padding(.horizontal, 1)
               })
+              .contentShape(Rectangle())
               .opacity((arraySafeAccess(CepheusPinyinDictionary[onFocusPinyinSyllable] ?? [onFocusPinyinSyllable], element: character) == nil) ? 0 : 1)
               .disabled(arraySafeAccess(CepheusPinyinDictionary[onFocusPinyinSyllable] ?? [onFocusPinyinSyllable], element: character) == nil)
             }
@@ -85,6 +87,7 @@ struct CepheusPiyin: View {
                 Image(systemName: "chevron.compact.right")
                   .padding(.leading, 5)
               })
+              .contentShape(Rectangle())
             }
           }
         } else {
