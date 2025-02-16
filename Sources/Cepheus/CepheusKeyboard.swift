@@ -675,10 +675,7 @@ struct CepheusKeyboardSingleKeyRowView: View {
               inputPinyin = CepheusKeyboardAddLetter(key, textField: inputPinyin, cursor: cursor-pinyinLocation)
             }
           }, label: {
-            ZStack {
-              RoundedRectangle(cornerRadius: 3)
-                .opacity(0.0100000002421438702673861521)
-                .foregroundStyle(.gray)
+            Group {
               if letterIsCapital { //If uppercased, then letters will be displayed in capital.
                 Text(key)
                   .textCase(.uppercase)
@@ -687,6 +684,7 @@ struct CepheusKeyboardSingleKeyRowView: View {
                   .textCase(.lowercase)
               }
             }
+            .contentShape(Rectangle())
           })
           .frame(width: screenWidth/keySpaceDividedNumber)
           .accessibilityAddTraits(.isKeyboardKey)
